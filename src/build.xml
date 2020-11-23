@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="controlDeAccesos" default="" basedir=".">
+    <property name="title" value="ControldeAccesos" />
+    <property name="websource" value="${basedir}/src/app" /> <!--codigo de la aplicacion-->
+    <property name="outdir" value="${basedir}/dist/out-tsc/app" /><!--No consigo encontrar esta ruta-->
+    <property name="compilation" value="${basedir}/dist/out-tsc/bin" /> <!--No se si esa ruta es correcta-->
+
+
+    <!--No consigo acceder a la carpeta, por lo que no puedo ver que hay dentro-->
+	<target name="CLEAN">
+		<echo message="Limpiando directorio ${compilation}" />
+		<delete dir="${compilation}" />
+		<echo message="Limpiando directorio ${outdir}/doc" />
+		<delete dir="${outdir}/doc" />
+		<echo message="Limpiando directorio ${outdir}" />
+		<delete dir="${outdir}" />
+	</target>
+
+    <target name="INIT">
+		<echo>Entorno configurado: ${environment}</echo> <!--No se si esto hace falta-->
+		<tstamp />
+        <!--En que ruta crea estas carpetas?????-->
+		<mkdir dir="${outdir}" />
+		<mkdir dir="${compilation}" />
+		<mkdir dir="${lib.dir}" />
+	</target>
+
+    <!--En busqueda de cómo compila JS-->
+    <target name="COMPILE" depends="INIT">
+		
+	</target>
+
+
+    <target name="WAR" description="Generacion del war">
+        <war destfile="${outdir}/${war.filename}" webxml="${websource}/WEB-INF/web.xml" update="true">
+        <fileset dir="${websource}" /> <!--codigo de la aplicacion-->
+        </war>
+    </target>
+
+</project>

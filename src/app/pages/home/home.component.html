@@ -1,1 +1,26 @@
-<h1>Estas en home</h1>
+<div class="container m-1">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand">Menú controlador acceso</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="" class="text-danger">Salir</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <hr>
+    <div class="card animated fadeIn fast">
+        <img src="assets/img/iconoQr.png" class="card-img-top img-fluid">
+        <div class="card-body">
+            <h4 class="card-title">Control de acceso</h4>
+            <p class="card-text">Lectura de los QR de acceso de los clientes</p>
+        </div>
+        <!--<zxing-scanner *ngIf="scannerEnabled" #scanner (scanSuccess)="scanSuccessHandler($event)"></zxing-scanner>-->
+        <button type="button" class="btn btn-outline-primary btn-block">Escanear</button>
+        <!--(click)="enableScanner()" esto va en el boton-->
+    </div>
+</div>

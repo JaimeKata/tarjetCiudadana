@@ -15,8 +15,8 @@ export class LoginComponent implements OnInit {
 
   accesoCorrecto: boolean;
   formulario: FormGroup;
+  usuario: UserModel;
 
- // cambiar a formulario reactivo
 
   constructor(private router: Router, private user: UserService, private fbuilder: FormBuilder, private validadores: ValidadoresService) {
     this.crearFormulario();
@@ -38,12 +38,22 @@ export class LoginComponent implements OnInit {
       password   : ['', [Validators.required, Validators.minLength(4) ]]
     });
   }
+  /*/
+  login(mail: string, password: string){
+    this.usuario = {mail, password};
+    this.user.login(this.usuario).subscribe( respuesta => {
+      console.log(respuesta);
+      this.router.navigateByUrl('/home');
+    });
+  }
+  /*/
   login(mail: string, password: string){ // pasamos el user por el servicio para comprobar si el login es correcto.
     this.accesoCorrecto = this.user.login(mail, password);
     if (this.accesoCorrecto === true){
       this.router.navigateByUrl('/home');
     }
   }
+
   acceder() {
     console.log( this.formulario );
     if ( this.formulario.invalid ) {
