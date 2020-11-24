@@ -1,1 +1,43 @@
-<p>accesos works!</p>
+<div class="container m-1">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand">Accesos</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="" class="nav-link">Menú</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="" class="text-danger">Salir</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <br>
+    <div class="form-row">
+    </div>
+    <div class="form-row">
+        <div class="col-md-6 mb-3">
+            <label for="validationTooltip03">Ciudad</label>
+            <input type="text" class="form-control" disabled placeholder="Zaragoza">
+        </div>
+        <div class="col-md-3 mb-3">
+            <label for="validationTooltip04">Recinto</label>
+            <select class="custom-select" id="validationTooltip04" required>
+                <option selected disabled value="">Opción</option>
+                <option>Edificio Seminario</option>
+                <option>Palacio Montezumo</option>
+                <option>Centro de Artes y Tecnología</option>
+                <option>Casa Consistorial</option>
+                <option>Casa Jiménez</option>
+            </select>
+        </div>
+        <div class="col-md-3 mb-3"></div>
+        <input type="date" name="fechaBusqueda" value="2018-07-22" min="2020-01-01" max="2020-12-31">
+        <!--Esto hay que cambiarlo-->
+    </div>
+    <br>
+    <button class="btn btn-primary" type="submit">Buscar</button>
+</div>

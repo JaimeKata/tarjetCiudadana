@@ -1,0 +1,75 @@
+<div class="container m-1">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand">Creación / edición</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="" class="nav-link">Menú</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="" class="nav-link">Eventos</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="" class="text-danger">Salir</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <br>
+    <form autocomplete="off" [formGroup]="formulario" (ngSubmit)="guardar()">
+        <div class="form-group row">
+            <label class="col-4 col-form-label">Nombre</label>
+            <div class="col">
+                <input class="form-control" type="email" placeholder="Nombre" formControlName="nombre" [class.is-invalid]="nombreNoValido">
+                <small *ngIf="nombreNoValido" class="text-danger">Ingrese el nombre</small>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-4 col-form-label">Aforo</label>
+            <div class="col">
+                <input class="form-control" type="number" placeholder="Aforo" formControlName="aforo" [class.is-invalid]="aforoNoValido">
+                <small *ngIf="aforoNoValido" class="text-danger">Añada un aforo</small>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-4 col-form-label">Descripción</label>
+            <div class="col">
+                <input class="form-control" type="text" placeholder="descripción" formControlName="descripcion" [class.is-invalid]="descripcionNoValida">
+                <small *ngIf="descripcionNoValida" class="text-danger">Añada una descripción</small>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-4 col-form-label">Fecha inicio</label>
+            <div class="col">
+                <input class="form-control" type="datetime-local" placeholder="fecha inicio" formControlName="fechaInicio" [class.is-invalid]="fechaInicioNoValida">
+                <small *ngIf="fechaInicioNoValida" class="text-danger">Añada una fecha de inicio</small>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-4 col-form-label">Fecha fin</label>
+            <div class="col">
+                <input class="form-control" type="datetime-local" placeholder="fecha fin" formControlName="fechaFin" [class.is-invalid]="fechaFinNoValida">
+                <small *ngIf="fechaFinNoValida" class="text-danger">Añada una fecha de finalización</small>
+            </div>
+        </div>
+        <div class="form-group row" formGroupName="direccion">
+            <label class="col-4 col-form-label">Dirección</label>
+            <div class="form-row col">
+                <div class="col">
+                    <input type="text" class="form-control" placeholder="CP" formControlName="codigoPostal" [class.is-invalid]="codigoPostalNoValido">
+                </div>
+                <div class="col">
+                    <input type="text" class="form-control" disabled placeholder="Zaragoza" formControlName="ciudad">
+                </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="input-group col">
+                <button type="submit" class="btn btn-outline-primary btn-block">Guardar</button>
+            </div>
+        </div>
+
+    </form>

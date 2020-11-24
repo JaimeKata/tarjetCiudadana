@@ -14,6 +14,9 @@ import { HomeAdminComponent } from './pages/home-admin/home-admin.component';
 import { EventoComponent } from './pages/evento/evento.component';
 import { ControladorComponent } from './pages/controlador/controlador.component';
 import { AccesosComponent } from './pages/accesos/accesos.component';
+import { FormularioComponent } from './pages/formulario/formulario.component';
+import { BusquedaComponent } from './pages/busqueda/busqueda.component';
+import { FormEventoComponent } from './pages/form-evento/form-evento.component';
 
 
 @NgModule({
@@ -24,7 +27,10 @@ import { AccesosComponent } from './pages/accesos/accesos.component';
     HomeAdminComponent,
     EventoComponent,
     ControladorComponent,
-    AccesosComponent
+    AccesosComponent,
+    FormularioComponent,
+    BusquedaComponent,
+    FormEventoComponent
   ],
   imports: [
     BrowserModule,
