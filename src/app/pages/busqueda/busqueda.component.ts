@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ValidadoresService } from '../../services/validadores.service';
 import { UserService } from '../../services/user.service';
+import { stringify } from 'querystring';
 
 @Component({
   selector: 'app-busqueda',
@@ -12,6 +13,7 @@ import { UserService } from '../../services/user.service';
 export class BusquedaComponent implements OnInit {
 
   formulario: FormGroup;
+
 
   constructor(private fbuilder: FormBuilder, private validadores: ValidadoresService) { 
     this.crearFormulario();
@@ -30,5 +32,6 @@ export class BusquedaComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
 
 }
