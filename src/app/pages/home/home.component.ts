@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Firebase } from 'src/app/services/firebase.service';
+
 
 @Component({
   selector: 'app-home',
@@ -13,7 +15,7 @@ export class HomeComponent implements OnInit {
   url = 'https://demotcv.wallet-id.com/';
   valoresAcceso: Array<string>;
 
-  constructor() { }
+  constructor(private datos: Firebase) { }
 
   ngOnInit(): void {
   }
@@ -36,5 +38,6 @@ export class HomeComponent implements OnInit {
     const otp: string = this.valoresAcceso[2];
     console.log(userId);
     console.log(otp);
+    this.datos.otpActivo(this.url, userId, otp);
   }
 }

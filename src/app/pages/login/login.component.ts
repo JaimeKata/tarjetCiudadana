@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
   }
   /*/
   login(mail: string, password: string){ // pasamos el user por el servicio para comprobar si el login es correcto.
-    this.accesoCorrecto = this.user.login(mail, password);
+    this.accesoCorrecto = this.user.login('jaime', 'catalan', mail, password, 'admin');
     if (this.accesoCorrecto === true){
       this.router.navigateByUrl('/home');
     }

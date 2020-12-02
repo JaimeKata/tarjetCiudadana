@@ -14,8 +14,11 @@ export class UserService {
 
   usuarioActivo: UserModel;
   usuarioPrueba: UserModel = {
+    nombre: 'Jaime',
+    apellido: 'Catalan',
     mail: 'jaimecatmat@gmail.com',
-    password: '12345'
+    password: '12345',
+    tipoUSer: 'admin'
   };
 
   constructor(private http: HttpClient) { }
@@ -47,11 +50,14 @@ export class UserService {
 
   }
   /*/
-  login(mail: string, password: string){ // prueba para comprobar credenciales
+  login(nombre: string, apellido: string, mail: string, password: string, tipoUSer: string){ // prueba para comprobar credenciales
     if ( mail === this.usuarioPrueba.mail && password === this.usuarioPrueba.password){
         this.usuarioActivo = {  // de esta forma guardamos el usuario activo en el servicio
+          nombre,
+          apellido,
           mail,
-          password
+          password,
+          tipoUSer,
         };
         console.log('Login Correcto');
         return true;

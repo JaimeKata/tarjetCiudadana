@@ -14,7 +14,7 @@ export class FormularioComponent implements OnInit {
 
 
   formulario: FormGroup;
-  usuario: UserModel;
+  usuarioNuevo: UserModel;
 
   constructor(private router: Router, private user: UserService, private fbuilder: FormBuilder, private validadores: ValidadoresService) {
     this.crearFormulario();
@@ -33,17 +33,28 @@ export class FormularioComponent implements OnInit {
   get passwordNoValida() {
     return this.formulario.get('password').invalid && this.formulario.get('password').touched;
   }
+  get tipoUserNoValido() {
+    return this.formulario.get('tipoUser').invalid && this.formulario.get('tipoUser').touched;
+  }
   crearFormulario() {
 
     this.formulario = this.fbuilder.group({
       nombre  : ['', [ Validators.required, Validators.minLength(5) ]  ],
       apellido: ['', [Validators.required, Validators.minLength(5) ] ],
       mail  : ['', [ Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')] ],
-      password   : ['', [Validators.required, Validators.minLength(4) ]]
+      password   : ['', [Validators.required, Validators.minLength(4) ]],
+      tipoUser   : ['', [Validators.required, Validators.minLength(5) ]]
     });
   }
   guardar(){
-
+    this.usuarioNuevo = {
+      nombre: this.formulario.get('nombre').value,
+      apellido: this.formulario.get('apellido').value,
+      mail: this.formulario.get('mail').value,
+      password: this.formulario.get('password').value,
+      tipoUSer: this.formulario.get('tipoUser').value
+    };
+    // ahora hay que mandar el usuario a firebase o donde sea que lo guardemos
   }
 
   ngOnInit(): void {
