@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Firebase } from 'src/app/services/firebase.service';
+import { WalletIDService } from 'src/app/services/walletid.service';
 
 
 @Component({
@@ -12,10 +12,9 @@ export class HomeComponent implements OnInit {
   public scannerEnabled = true;
   private information = 'No se ha detectado información de ningún código. Acerque un código QR para escanear.';
   urlCompleta: string;
-  url = 'https://demotcv.wallet-id.com/';
   valoresAcceso: Array<string>;
 
-  constructor(private datos: Firebase) { }
+  constructor(private datos: WalletIDService) { }
 
   ngOnInit(): void {
   }
@@ -33,11 +32,11 @@ export class HomeComponent implements OnInit {
   public separarUrl(event){
     this.valoresAcceso = event.split('?');
     const user: string = this.valoresAcceso[1];
-    this.valoresAcceso = user.split('=');
-    const userId: string = this.valoresAcceso[1];
-    const otp: string = this.valoresAcceso[2];
+    this.valoresAcceso = user.split('&');
+    const userId: string = this.valoresAcceso[0].split('=')[1];
+    const otp: string = this.valoresAcceso[1].split('=')[1];
     console.log(userId);
     console.log(otp);
-    this.datos.otpActivo(this.url, userId, otp);
+    this.datos.otpActivo(userId, otp);
   }
 }

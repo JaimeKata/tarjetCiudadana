@@ -8,7 +8,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
 import { UserService } from 'src/app/services/user.service';
-import { Firebase} from 'src/app/services/firebase.service';
+import { WalletIDService} from 'src/app/services/walletid.service';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
@@ -42,7 +42,7 @@ import { FormEventoComponent } from './pages/form-evento/form-evento.component';
     HttpClientModule,
     ZXingScannerModule
   ],
-  providers: [UserService, Firebase],
+  providers: [UserService, WalletIDService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
