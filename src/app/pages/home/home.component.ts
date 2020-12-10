@@ -39,4 +39,11 @@ export class HomeComponent implements OnInit {
     console.log(otp);
     this.datos.otpActivo(userId, otp);
   }
+  public autorizacion(acceso: boolean){
+    if( acceso == true ){
+      window.confirm("Acceso concedido");
+    } else {
+      window.confirm("Acceso denegado");
+    }
+  }
 }

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
+import { HomeComponent } from 'src/app/pages/home/home.component';
 
 
 @Injectable({
@@ -12,7 +13,7 @@ export class WalletIDService {
   public autorizacion: string; 
 
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private respuesta: HomeComponent) {
 
   }
 
@@ -40,14 +41,17 @@ export class WalletIDService {
 
   comprobarDatos(otp: string){
     let otpLeido: string;
+    let acceso: boolean; 
     const respAutorizacion = JSON.parse(this.autorizacion);
     if(respAutorizacion === null){
-      // acceso denegado
+      acceso = false; 
+      this.respuesta.autorizacion(acceso);
     } else {
       otpLeido = respAutorizacion?.otp;
     }
     if(otpLeido == otp){
-      // acceso correcto
+      acceso = true;
+      this.respuesta.autorizacion(acceso); 
     }
   }
 }
