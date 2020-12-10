@@ -9,6 +9,8 @@ export class WalletIDService {
   url = 'https://demotcv.wallet-id.com/sslsignature';
   user = 'f65790ad-af05-42dd-85d0-5aec81cf617e';
   apiKey = '5qtm06ueo5km4b48265hikl0ul';
+  public autorizacion: string; 
+
 
   constructor(private http: HttpClient) {
 
@@ -21,12 +23,12 @@ export class WalletIDService {
       {'AuthorizationFilter': { 'toUserId': userId, 'notExpired': true, 'status': 'INIT' } },
       { headers: this.createHeaders() }
     ).
-      subscribe(data => { console.log(data); }, (error) => { // sacar de data el Json
+      subscribe( (data: any) => { this.autorizacion = data; }, (error) => { // sacar de data el Json
         console.log('error from service', error);
         // do further processing
+        this.comprobarDatos(otp);
       });
   }
-  /* no consigo añadir los headers sin que pete*/
   createHeaders() {
     let autorization = 'Basic ' + btoa(this.user + ':' + this.apiKey);
     let headers = new HttpHeaders()
@@ -34,5 +36,18 @@ export class WalletIDService {
       .append('Content-Type', 'application/json')
       .append('Access-Control-Allow-Origin', '*');
     return headers;
+  }
+
+  comprobarDatos(otp: string){
+    let otpLeido: string;
+    const respAutorizacion = JSON.parse(this.autorizacion);
+    if(respAutorizacion === null){
+      // acceso denegado
+    } else {
+      otpLeido = respAutorizacion?.otp;
+    }
+    if(otpLeido == otp){
+      // acceso correcto
+    }
   }
 }
