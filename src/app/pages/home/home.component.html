@@ -20,6 +20,13 @@
             <p class="card-text">Lectura de los QR de acceso de los clientes</p>
         </div>
         <zxing-scanner *ngIf="scannerEnabled" #scanner (scanSuccess)="scanSuccessHandler($event)"></zxing-scanner>
-        <button (click)="enableScanner()" type="button" class="btn btn-outline-primary btn-block">Escanear</button>
+        <button *ngIf="!scannerEnabled" (click)="enableScanner()" type="button" class="btn btn-outline-primary btn-block">Escanear</button>
+    </div>
+    <div class="msg-info">{{information}}</div>
+    <div *ngIf="otpStatus === 'ko'">
+        acceso denegado
+    </div>
+    <div *ngIf="otpStatus === 'ok'">
+        acceso concedido
     </div>
 </div>

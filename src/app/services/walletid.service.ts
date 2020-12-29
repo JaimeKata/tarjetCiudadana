@@ -13,32 +13,35 @@ export class WalletIDService {
   user = environment.user;
   apiKey = environment.apiKey;
 
- public autorizacion: string; 
-
   constructor(private http: HttpClient) {
 
   }
   
   /**
    * Comprueba si el OTP es correcto
-   **/
-  otpActivo(userId: string, otp: string){
-    const urlCompleta: string = this.url.concat('/authorization/list');
-    console.log('URLCompleta: ' + urlCompleta);
-    this.http.post(urlCompleta,
-      {'AuthorizationFilter': { 'toUserId': userId, 'notExpired': true, 'status': 'INIT' } },
-      { headers: this.createHeaders() }
-    ).
-      subscribe( 
-        (data: any) => {
-           this.autorizacion = data; 
-           this.comprobarDatos(otp);
-        }, 
-        (error) => {
-          console.log('error from service', error);
-          // do further processing
-          // TODO Mostrar un error por fallo catastrófico      
-      });
+   *
+   * @param userId 
+   * @param otp 
+   */
+  comprobarOtpActivo(userId: string, otp: number): Promise<boolean>{
+    return new Promise<boolean>((resolver, rechazar) => { 
+      const urlCompleta: string = this.url.concat('/authorization/list');
+      console.log('URLCompleta: ' + urlCompleta);
+      this.http.post(urlCompleta,
+        {'AuthorizationFilter': { 'toUserId': userId, 'notExpired': true, 'status': 'INIT' } },
+        { headers: this.createHeaders() }
+      ).
+        subscribe( 
+          (data: any) => {
+            resolver(this.comprobarDatos(otp, data));
+          }, 
+          (error) => {
+            console.log('error from service', error);
+            // do further processing
+            // TODO Mostrar un error por fallo catastrófico      
+        });
+     }
+    );
   }
   createHeaders() {
     let autorization = 'Basic ' + btoa(this.user + ':' + this.apiKey);
@@ -49,19 +52,20 @@ export class WalletIDService {
     return headers;
   }
 
-  comprobarDatos(otp: string){
-    let otpLeido: string;
-    let acceso: boolean; 
-    const respAutorizacion = JSON.parse(this.autorizacion);
-    if(respAutorizacion === null){
-      acceso = false; 
-      // this.respuesta.autorizacion(acceso);
-    } else {
-      otpLeido = respAutorizacion?.otp;
+  /**
+   * Contrasta OTP con backend
+   * 
+   * @param otp Otp leido por QR
+   * @param data Registro recibido del backend
+   */
+  comprobarDatos(otp: number, data: any):boolean{
+  
+    if(!data.Authorization || data.Authorization.length===0){
+      return false;
+    } else if(data.Authorization[0]?.otp === otp) {
+      return true;
     }
-    if(otpLeido == otp){
-      acceso = true;
-      // this.respuesta.autorizacion(acceso); 
-    }
+
+    return false;
   }
 }
