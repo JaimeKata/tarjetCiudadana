@@ -3,7 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  url:'https://demotcv.wallet-id.com/sslsignature',
+  user: 'f65790ad-af05-42dd-85d0-5aec81cf617e',
+  apiKey:'5qtm06ueo5km4b48265hikl0ul',
 };
 
 /*
