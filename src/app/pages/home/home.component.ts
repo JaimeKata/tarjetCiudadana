@@ -14,7 +14,7 @@ export class HomeComponent implements OnInit {
   urlCompleta: string;
   valoresAcceso: Array<string>;
 
-  constructor(private datos: WalletIDService) { }
+  constructor(private walletIdService: WalletIDService) { }
 
   ngOnInit(): void {
   }
@@ -29,6 +29,11 @@ export class HomeComponent implements OnInit {
     this.scannerEnabled = !this.scannerEnabled;
     this.information = 'No se ha detectado información de ningún código. Acerque un código QR para escanear.';
   }
+  
+  /**
+   * Trocea la URL y comprueba el QR
+   * @param event 
+   */
   public separarUrl(event){
     this.valoresAcceso = event.split('?');
     const user: string = this.valoresAcceso[1];
@@ -37,13 +42,26 @@ export class HomeComponent implements OnInit {
     const otp: string = this.valoresAcceso[1].split('=')[1];
     console.log(userId);
     console.log(otp);
-    this.datos.otpActivo(userId, otp);
+    this.walletIdService.otpActivo(userId, otp);
   }
+
   public autorizacion(acceso: boolean){
-    if( acceso == true ){
+    let aforo: boolean;
+    aforo = this.comprobarAforo();
+    if( acceso == true && aforo == true ){
       window.confirm("Acceso concedido");
     } else {
-      window.confirm("Acceso denegado");
+      window.alert("Acceso denegado");
+    }
+  }
+  comprobarAforo(){
+    const aforoMaximo = 100;
+    let aforo = 0; 
+    if(aforo <= aforoMaximo){
+      aforo ++; 
+      return true; 
+    } else {
+      return false;
     }
   }
 }

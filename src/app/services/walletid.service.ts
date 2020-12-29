@@ -1,22 +1,27 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { HomeComponent } from 'src/app/pages/home/home.component';
+import { environment } from 'src/environments/environment';
+
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class WalletIDService {
-  url = 'https://demotcv.wallet-id.com/sslsignature';
-  user = 'f65790ad-af05-42dd-85d0-5aec81cf617e';
-  apiKey = '5qtm06ueo5km4b48265hikl0ul';
-  public autorizacion: string; 
+  url = environment.url;
+  user = environment.user;
+  apiKey = environment.apiKey;
 
+ public autorizacion: string; 
 
-  constructor(private http: HttpClient, private respuesta: HomeComponent) {
+  constructor(private http: HttpClient) {
 
   }
-
+  
+  /**
+   * Comprueba si el OTP es correcto
+   **/
   otpActivo(userId: string, otp: string){
     const urlCompleta: string = this.url.concat('/authorization/list');
     console.log('URLCompleta: ' + urlCompleta);
@@ -24,10 +29,15 @@ export class WalletIDService {
       {'AuthorizationFilter': { 'toUserId': userId, 'notExpired': true, 'status': 'INIT' } },
       { headers: this.createHeaders() }
     ).
-      subscribe( (data: any) => { this.autorizacion = data; }, (error) => { // sacar de data el Json
-        console.log('error from service', error);
-        // do further processing
-        this.comprobarDatos(otp);
+      subscribe( 
+        (data: any) => {
+           this.autorizacion = data; 
+           this.comprobarDatos(otp);
+        }, 
+        (error) => {
+          console.log('error from service', error);
+          // do further processing
+          // TODO Mostrar un error por fallo catastrófico      
       });
   }
   createHeaders() {
@@ -45,13 +55,13 @@ export class WalletIDService {
     const respAutorizacion = JSON.parse(this.autorizacion);
     if(respAutorizacion === null){
       acceso = false; 
-      this.respuesta.autorizacion(acceso);
+      // this.respuesta.autorizacion(acceso);
     } else {
       otpLeido = respAutorizacion?.otp;
     }
     if(otpLeido == otp){
       acceso = true;
-      this.respuesta.autorizacion(acceso); 
+      // this.respuesta.autorizacion(acceso); 
     }
   }
 }
