@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { UserService } from '../../services/user.service';
-import { UserModel } from '../../models/user.model';
-import { ValidadoresService } from '../../services/validadores.service';
+import { UserService } from 'src/app/services/user.service';
+import { UserModel } from 'src/app/models/user.model';
+import { ValidadoresService } from 'src/app/services/validadores.service';
 
 
 @Component({
@@ -13,8 +13,8 @@ import { ValidadoresService } from '../../services/validadores.service';
 })
 export class LoginComponent implements OnInit {
 
-  accesoCorrecto: boolean;
-  formulario: FormGroup;
+  correctAccess: boolean;
+  form: FormGroup;
   usuario: UserModel;
 
 
@@ -26,19 +26,19 @@ export class LoginComponent implements OnInit {
   }
 
   get mailNoValido() {
-    return this.formulario.get('mail').invalid && this.formulario.get('mail').touched;
+    return this.form.get('mail').invalid && this.form.get('mail').touched;
   }
   get passwordNoValida() {
-    return this.formulario.get('password').invalid && this.formulario.get('password').touched;
+    return this.form.get('password').invalid && this.form.get('password').touched;
   }
   crearFormulario() {
 
-    this.formulario = this.fbuilder.group({
+    this.form = this.fbuilder.group({
       mail  : ['', [ Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')] ],
       password   : ['', [Validators.required, Validators.minLength(4) ]]
     });
   }
-  /*/
+  /*
   login(mail: string, password: string){
     this.usuario = {mail, password};
     this.user.login(this.usuario).subscribe( respuesta => {
@@ -46,18 +46,18 @@ export class LoginComponent implements OnInit {
       this.router.navigateByUrl('/home');
     });
   }
-  /*/
+  */
   login(mail: string, password: string){ // pasamos el user por el servicio para comprobar si el login es correcto.
-    this.accesoCorrecto = this.user.login('jaime', 'catalan', mail, password, 'admin');
-    if (this.accesoCorrecto === true){
+    this.correctAccess = this.user.login('jaime', 'catalan', mail, password, 'admin');
+    if (this.correctAccess === true){
       this.router.navigateByUrl('/home');
     }
   }
 
   acceder() {
-    console.log( this.formulario );
-    if ( this.formulario.invalid ) {
-      return Object.values( this.formulario.controls ).forEach( control => {
+    console.log( this.form );
+    if ( this.form.invalid ) {
+      return Object.values( this.form.controls ).forEach( control => {
         if ( control instanceof FormGroup ) {
           Object.values( control.controls ).forEach( control => control.markAsTouched() );
         } else {
@@ -65,8 +65,8 @@ export class LoginComponent implements OnInit {
         }
       });
     }
-    this.login(this.formulario.get('mail').value, this.formulario.get('password').value); // recupero los datos del formulario
-    this.formulario.reset();
+    this.login(this.form.get('mail').value, this.form.get('password').value); // recupero los datos del formulario
+    this.form.reset();
   }
 
 }

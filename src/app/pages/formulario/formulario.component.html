@@ -23,36 +23,36 @@
         <div class="form-group row">
             <label class="col-4 col-form-label">Nombre</label>
             <div class="col">
-                <input class="form-control" type="email" placeholder="Nombre" formControlName="nombre" [class.is-invalid]="nombreNoValido">
-                <small *ngIf="nombreNoValido" class="text-danger">Ingrese el nombre</small>
+                <input class="form-control" type="text" placeholder="Nombre" formControlName="name" [class.is-invalid]="nameInvalid">
+                <small *ngIf="nameInvalid" class="text-danger">Ingrese el nombre</small>
             </div>
         </div>
         <div class="form-group row">
             <label class="col-4 col-form-label">Apellido</label>
             <div class="col">
-                <input class="form-control" type="email" placeholder="Apellido" formControlName="apellido" [class.is-invalid]="apellidoNoValido">
-                <small *ngIf="apellidoNoValido" class="text-danger">Ingrese el apellido</small>
+                <input class="form-control" type="email" placeholder="Apellido" formControlName="surname" [class.is-invalid]="surnameInvalid">
+                <small *ngIf="surnameInvalid" class="text-danger">Ingrese el apellido</small>
             </div>
         </div>
         <div class="form-group row">
             <label class="col-4 col-form-label">Correo</label>
             <div class="col">
-                <input class="form-control" type="email" placeholder="Correo electrónico" formControlName="mail" [class.is-invalid]="mailNoValido">
-                <small *ngIf="mailNoValido" class="text-danger">Ingrese el correo</small>
+                <input class="form-control" type="email" placeholder="Correo electrónico" formControlName="mail" [class.is-invalid]="mailInvalid">
+                <small *ngIf="mailInvalid" class="text-danger">Ingrese el correo</small>
             </div>
         </div>
         <div class="form-group row">
             <label class="col-4 col-form-label">Contraseña</label>
             <div class="col">
-                <input class="form-control" type="password" placeholder="Contraseña" formControlName="password" [class.is-invalid]="passwordNoValida">
-                <small *ngIf="mailNoValido" class="text-danger">Ingrese una contraseña válida</small>
+                <input class="form-control" type="password" placeholder="Contraseña" formControlName="password" [class.is-invalid]="passwordInvalid">
+                <small *ngIf="passwordInvalid" class="text-danger">Ingrese una contraseña válida</small>
             </div>
         </div>
         <div class="form-group row">
             <label class="col-4 col-form-label">Tipo usuario</label>
             <div class="col">
-                <input class="form-control" type="email" placeholder="Tipo usuario" formControlName="tipoUser" [class.is-invalid]="tipoUserNoValido">
-                <small *ngIf="tipoUserNoValido" class="text-danger">Ingrese el tipo</small>
+                <input class="form-control" type="email" placeholder="Tipo usuario" formControlName="userType" [class.is-invalid]="userTypeInvalid">
+                <small *ngIf="userTypeInvalid" class="text-danger">Ingrese el tipo</small>
             </div>
         </div>
         <div class="form-group row">

@@ -20,39 +20,47 @@ export class FormularioComponent implements OnInit {
     this.crearFormulario();
   }
 
-  get nombreNoValido() {
-    return this.formulario.get('nombre').invalid && this.formulario.get('nombre').touched;
+  get nameInvalid() {
+    return this.formulario.get('name').invalid && this.formulario.get('name').touched;
   }
 
-  get apellidoNoValido() {
-    return this.formulario.get('apellido').invalid && this.formulario.get('apellido').touched;
+  get surnameInvalid() {
+    return this.formulario.get('surname').invalid && this.formulario.get('surname').touched;
   }
-  get mailNoValido() {
+  get mailInvalid() {
     return this.formulario.get('mail').invalid && this.formulario.get('mail').touched;
   }
-  get passwordNoValida() {
+  get passwordInvalid() {
     return this.formulario.get('password').invalid && this.formulario.get('password').touched;
   }
-  get tipoUserNoValido() {
-    return this.formulario.get('tipoUser').invalid && this.formulario.get('tipoUser').touched;
+  get userTypeInvalid() {
+    return this.formulario.get('userType').invalid && this.formulario.get('userType').touched;
   }
+  /**
+   * Establecemos los requisitos minimos par validar cada campo
+   * En el correo he añadido una expesión regular para validarlo
+   */
   crearFormulario() {
 
     this.formulario = this.fbuilder.group({
-      nombre  : ['', [ Validators.required, Validators.minLength(5) ]  ],
-      apellido: ['', [Validators.required, Validators.minLength(5) ] ],
+      name  : ['', [ Validators.required, Validators.minLength(5) ]  ],
+      surname: ['', [Validators.required, Validators.minLength(5) ] ],
       mail  : ['', [ Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')] ],
       password   : ['', [Validators.required, Validators.minLength(4) ]],
-      tipoUser   : ['', [Validators.required, Validators.minLength(5) ]]
+      userType   : ['', [Validators.required, Validators.minLength(5) ]]
     });
   }
+  /**
+   * Recuperamos cada uno de los valores del formulario y creamos el objeto usuario
+   * 
+   */
   guardar(){
     this.usuarioNuevo = {
-      nombre: this.formulario.get('nombre').value,
-      apellido: this.formulario.get('apellido').value,
+      name: this.formulario.get('name').value,
+      surname: this.formulario.get('surname').value,
       mail: this.formulario.get('mail').value,
       password: this.formulario.get('password').value,
-      tipoUSer: this.formulario.get('tipoUser').value
+      userType: this.formulario.get('userType').value
     };
     // ahora hay que mandar el usuario a firebase o donde sea que lo guardemos
   }

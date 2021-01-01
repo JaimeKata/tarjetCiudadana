@@ -31,6 +31,7 @@ export class HomeComponent implements OnInit {
    * Metodo que invoca el lector de QRs cuando detecta uno válido
   */
   public scanSuccessHandler(event: any) {
+    console.log('QR leido:'+event);
     this.scannerEnabled = false;
     this.information = 'Espera recuperando información... ';
     this.separarUrl(event);
@@ -65,7 +66,7 @@ export class HomeComponent implements OnInit {
     const accesoValido: boolean = await this.walletIdService.comprobarOtpActivo(userId, otp);
     this.mostrarMensajeAutorizacion(accesoValido);
   }
-
+  
   private mostrarMensajeAutorizacion(acceso: boolean){
     let aforo: boolean;
     aforo = this.comprobarAforo();
