@@ -13,7 +13,7 @@
         </div>
     </nav>
     <hr>
-    <div class="card animated fadeIn fast" *ngIf="eventCapacity === 'ok'">
+    <div class="card animated fadeIn fast" *ngIf="capacity > 0">
         <div class="card-body">
             <h4 class="card-title">Control de acceso</h4>
             <p class="card-text">Lectura de los QR de acceso de los clientes</p>
@@ -27,7 +27,7 @@
             </div>
         </div>
     </div>
-    <div *ngIf="eventCapacity === 'ko'">
+    <div *ngIf="capacity === 0">
         <div class="aforo card text-white bg-danger mb-3 card animated fadeIn fast">
             <div class="card-body">
                 <h5 class="card-title">Aforo completo</h5>

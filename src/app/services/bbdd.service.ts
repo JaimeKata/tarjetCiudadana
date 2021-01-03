@@ -5,6 +5,7 @@ import { UserModel } from 'src/app/models/user.model';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { environment } from 'src/environments/environment';
 import { Subscription, Observable } from 'rxjs';
+import { promise } from 'protractor';
 
 
 
@@ -22,22 +23,34 @@ export class BBDDService {
    * Comprobamos la capacidad del evento
    * 
    */
-  checkCapacity(){
-    //coleccion de evento
-    //recuperamos el evento por id
-    let docRef = this.dbService.collection(environment.collectionId).doc(environment.eventId);
-    docRef.get().subscribe((doc) => {
-    if (doc.exists) {
-      const event: EventoModel = doc.data();
-      console.log("Evento:", event);
-      docRef.update({capacity: event.capacity -1 })
-    } else {
-        // doc.data() will be undefined in this case
-        console.log('No se ha encontrado el evento');
-      }
+  checkCapacity(): Promise<number>{
+    return new Promise((resolver, rechazar) =>{
+      //coleccion de evento
+      //recuperamos el evento por id
+      let docRef = this.dbService.collection(environment.collectionId).doc(environment.eventId);
+      docRef.get().subscribe((doc) => {
+      if (doc.exists) {
+        const event: EventoModel = doc.data();
+        console.log("Evento:", event);
+        const newCapacity = event.capacity -1;
+        if(newCapacity>=0){
+          docRef.update({capacity: newCapacity });
+          resolver(newCapacity);
+        } else{
+          rechazar(newCapacity);
+        }
+      } else {
+          // doc.data() will be undefined in this case
+          console.log('No se ha encontrado el evento');
+          rechazar(-1);
+        }
+      });
     });
   }
 
+  /**
+   * OBtiene la capacidad actual de un evento desde firebase
+   */
   getCapacity(): Observable<any>{
     let capacity: number; 
     let docRef = this.dbService.collection(environment.collectionId).doc(environment.eventId);

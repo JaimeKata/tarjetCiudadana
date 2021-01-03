@@ -16,10 +16,8 @@ export class HomeComponent implements OnInit {
   /**
    * Activa / desactiva el lector de qr
    */
-  public scannerEnabled = true;
-
+  public scannerEnabled: boolean;
   public otpStatus: 'ok'|'ko'|'pending';
-  public eventCapacity: 'ok'|'ko';
   public capacity: number;
 
   /**
@@ -29,20 +27,22 @@ export class HomeComponent implements OnInit {
   
   constructor(private walletIdService: WalletIDService, private dbService: BBDDService) { 
     this.otpStatus = 'pending';
+    this.capacity = -1;
+    this.scannerEnabled = false;
   }
 
   ngOnInit(): void {
-    //sustituir por metodo de solo lectura
+    this.readCapacity();
+  }
+  /**
+   * Metodo encargado de leer el aforo disponible
+   */
+  readCapacity(){
     let eventRef: Observable<any> = this.dbService.getCapacity();
     eventRef.subscribe((doc)=>{
       if (doc.exists) {
         const event: EventoModel = doc.data();
         this.capacity = event.capacity;
-      } if(this.capacity > 0){ 
-        this.eventCapacity = 'ok';
-        this.dbService.checkCapacity();
-      } else{
-        this.eventCapacity = 'ko';
       }
     });
   }
@@ -63,10 +63,6 @@ export class HomeComponent implements OnInit {
   public enableScanner() {
    this.scannerEnabled = !this.scannerEnabled;
    this.otpStatus = 'pending';
-   /**
-    * TODO quitar linea de debug
-    */
-    this.scanSuccessHandler("https://demotcv.wallet-id.com/adm/#/tool/checkOtp?userId=a077e5f5-280c-45e1-a8a1-646f09a4c364&otp=2610");
   }
   
   /**
@@ -81,9 +77,17 @@ export class HomeComponent implements OnInit {
     const otp: number = parseInt(valoresAcceso[1].split('=')[1]);
     console.log(userId);
     console.log(otp);
-    // Validamos datos
-    
+    // Validamos datos del QR
     const accesoValido: boolean = await this.walletIdService.comprobarOtpActivo(userId, otp);
+
+    if(!accesoValido){
+      this.mostrarMensajeAutorizacion(accesoValido);
+      return;
+    }
+
+    // TODO tratar el rechazo de la promesa
+    //validamos el aforo
+    this.capacity = await this.dbService.checkCapacity();
     this.mostrarMensajeAutorizacion(accesoValido);
   }
   
