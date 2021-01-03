@@ -3,6 +3,7 @@
     text-align: left;
 }
 
-.aforo h5 {
+.aforo h5,
+.acceso h5 {
     text-align: center;
 }

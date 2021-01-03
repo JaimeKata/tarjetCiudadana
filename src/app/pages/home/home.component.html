@@ -30,7 +30,7 @@
     <div *ngIf="eventCapacity === 'ko'">
         <div class="aforo card text-white bg-danger mb-3 card animated fadeIn fast">
             <div class="card-body">
-                <h5 class="card-title" style="text-align: center;">Aforo completo</h5>
+                <h5 class="card-title">Aforo completo</h5>
             </div>
         </div>
     </div>
@@ -41,14 +41,14 @@
             </div>
         </div>
         <div *ngIf="otpStatus === 'ko'">
-            <div class="card text-white bg-danger mb-3 card animated fadeIn fast">
+            <div class="acceso card text-white bg-danger mb-3 card animated fadeIn fast">
                 <div class="card-body">
                     <h5 class="card-title" style="text-align: center;">Acceso denegado</h5>
                 </div>
             </div>
         </div>
         <div *ngIf="otpStatus === 'ok'">
-            <div class="card text-white bg-success mb-3 card animated fadeIn fast">
+            <div class=" acceso card text-white bg-success mb-3 card animated fadeIn fast">
                 <div class="card-body">
                     <h5 class="card-title" style="text-align: center;">Acceso concedido</h5>
                 </div>
