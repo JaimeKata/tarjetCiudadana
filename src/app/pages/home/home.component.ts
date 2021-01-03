@@ -43,6 +43,9 @@ export class HomeComponent implements OnInit {
       if (doc.exists) {
         const event: EventoModel = doc.data();
         this.capacity = event.capacity;
+        if(this.capacity > 0){
+          this.enableScanner();
+        }
       }
     });
   }
