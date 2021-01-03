@@ -9,6 +9,9 @@ import { ZXingScannerModule } from '@zxing/ngx-scanner';
 
 import { UserService } from 'src/app/services/user.service';
 import { WalletIDService} from 'src/app/services/walletid.service';
+import { BBDDService } from 'src/app/services/bbdd.service';
+
+import { AngularFireModule } from '@angular/fire';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
@@ -20,6 +23,7 @@ import { AccesosComponent } from './pages/accesos/accesos.component';
 import { FormularioComponent } from './pages/formulario/formulario.component';
 import { BusquedaComponent } from './pages/busqueda/busqueda.component';
 import { FormEventoComponent } from './pages/form-evento/form-evento.component';
+import { environment } from '../environments/environment';
 
 
 @NgModule({
@@ -40,9 +44,10 @@ import { FormEventoComponent } from './pages/form-evento/form-evento.component';
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    ZXingScannerModule
+    ZXingScannerModule,
+    AngularFireModule.initializeApp(environment.firebase)
   ],
-  providers: [UserService, WalletIDService],
+  providers: [UserService, WalletIDService, BBDDService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

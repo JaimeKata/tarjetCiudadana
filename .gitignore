@@ -46,3 +46,5 @@ testem.log
 Thumbs.db
 /nbproject/private/
 /build/
+
+/src/environments/

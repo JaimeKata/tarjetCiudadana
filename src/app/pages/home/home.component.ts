@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { WalletIDService } from 'src/app/services/walletid.service';
+import { BBDDService } from '../../services/bbdd.service';
 
 
 @Component({
@@ -20,12 +21,15 @@ export class HomeComponent implements OnInit {
    */
   information = 'No se ha detectado información de ningún código. Acerque un código QR para escanear.';
   
-  constructor(private walletIdService: WalletIDService) { 
+  constructor(private walletIdService: WalletIDService, private dbService: BBDDService) { 
     this.otpStatus = 'pending';
   }
 
   ngOnInit(): void {
+    //sustituir por metodo de solo lectura
+    this.dbService.checkCapacity();
   }
+
 
   /** 
    * Metodo que invoca el lector de QRs cuando detecta uno válido
@@ -46,7 +50,7 @@ export class HomeComponent implements OnInit {
    /**
     * TODO quitar linea de debug
     */
-   // this.scanSuccessHandler("https://demotcv.wallet-id.com/adm/#/tool/checkOtp?userId=a077e5f5-280c-45e1-a8a1-646f09a4c364&otp=1039");
+    this.scanSuccessHandler("https://demotcv.wallet-id.com/adm/#/tool/checkOtp?userId=a077e5f5-280c-45e1-a8a1-646f09a4c364&otp=2610");
   }
   
   /**
@@ -68,26 +72,10 @@ export class HomeComponent implements OnInit {
   }
   
   private mostrarMensajeAutorizacion(acceso: boolean){
-    let aforo: boolean;
-    aforo = this.comprobarAforo();
-    if( acceso == true && aforo == true ){
+    if( acceso == true){
       this.otpStatus = 'ok';
     } else {
       this.otpStatus = 'ko';
-    }
-  }
-
-  /**
-   * TODO arreglar y pasar a firebase
-   */
-  comprobarAforo(){
-    const aforoMaximo = 100;
-    let aforo = 0; 
-    if(aforo <= aforoMaximo){
-      aforo ++; 
-      return true; 
-    } else {
-      return false;
     }
   }
 }

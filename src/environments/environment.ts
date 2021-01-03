@@ -16,7 +16,9 @@ export const environment = {
     messagingSenderId: "789343661049",
     appId: "1:789343661049:web:e328dea38e5a06b1de2b28",
     measurementId: "G-0672R3YP74"
-  }
+  },
+  collectionId: 'eventos',
+  eventId: 'Foals'
 };
 
 /*
