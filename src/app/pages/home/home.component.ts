@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { WalletIDService } from 'src/app/services/walletid.service';
 import { BBDDService } from '../../services/bbdd.service';
+import { AngularFirestoreDocument } from '@angular/fire/firestore';
+import { Observable } from 'rxjs';
+import { EventoModel } from 'src/app/models/event.model';
 
 
 @Component({
@@ -16,6 +19,9 @@ export class HomeComponent implements OnInit {
   public scannerEnabled = true;
 
   public otpStatus: 'ok'|'ko'|'pending';
+  public eventCapacity: 'ok'|'ko';
+  public capacity: number;
+
   /**
    * Mensaje informativo 
    */
@@ -27,9 +33,19 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     //sustituir por metodo de solo lectura
-    this.dbService.checkCapacity();
+    let eventRef: Observable<any> = this.dbService.getCapacity();
+    eventRef.subscribe((doc)=>{
+      if (doc.exists) {
+        const event: EventoModel = doc.data();
+        this.capacity = event.capacity;
+      } if(this.capacity > 0){ 
+        this.eventCapacity = 'ok';
+        this.dbService.checkCapacity();
+      } else{
+        this.eventCapacity = 'ko';
+      }
+    });
   }
-
 
   /** 
    * Metodo que invoca el lector de QRs cuando detecta uno válido

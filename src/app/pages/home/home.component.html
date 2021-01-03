@@ -13,26 +13,44 @@
         </div>
     </nav>
     <hr>
-    <div class="card animated fadeIn fast">
+    <div class="card animated fadeIn fast" *ngIf="eventCapacity === 'ok'">
         <div class="card-body">
             <h4 class="card-title">Control de acceso</h4>
             <p class="card-text">Lectura de los QR de acceso de los clientes</p>
         </div>
-        <zxing-scanner (scanSuccess)="scanSuccessHandler($event)"></zxing-scanner>
+        <zxing-scanner *ngIf="scannerEnabled" (scanSuccess)="scanSuccessHandler($event)"></zxing-scanner>
         <button *ngIf="!scannerEnabled" (click)="enableScanner()" type="button" class="btn btn-outline-primary btn-block">Escanear</button>
-    </div>
-    <div class="msg-info">{{information}}</div>
-    <div *ngIf="otpStatus === 'ko'">
-        <div class="card text-white bg-danger mb-3" style="max-width: 18rem;">
+        <div class="aforo card text-white bg-success mb-3 card animated fadeIn fast">
             <div class="card-body">
-                <h5 class="card-title">Acceso denegado</h5>
+                <h5 class="card-title">Aforo disponible:</h5>
+                <h5 class="card-body">{{capacity}} personas</h5>
             </div>
         </div>
     </div>
-    <div *ngIf="otpStatus === 'ok'">
-        <div class="card text-white bg-success mb-3" style="max-width: 18rem;">
+    <div *ngIf="eventCapacity === 'ko'">
+        <div class="aforo card text-white bg-danger mb-3 card animated fadeIn fast">
             <div class="card-body">
-                <h5 class="card-title">Acceso concedido</h5>
+                <h5 class="card-title" style="text-align: center;">Aforo completo</h5>
             </div>
         </div>
     </div>
+    <div class="msg-info">
+        <div class="card text-dark bg-warning mb-3 card animated fadeIn fast">
+            <div class="card-body">
+                <h5 class="card-body">{{information}}</h5>
+            </div>
+        </div>
+        <div *ngIf="otpStatus === 'ko'">
+            <div class="card text-white bg-danger mb-3 card animated fadeIn fast">
+                <div class="card-body">
+                    <h5 class="card-title" style="text-align: center;">Acceso denegado</h5>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="otpStatus === 'ok'">
+            <div class="card text-white bg-success mb-3 card animated fadeIn fast">
+                <div class="card-body">
+                    <h5 class="card-title" style="text-align: center;">Acceso concedido</h5>
+                </div>
+            </div>
+        </div>
